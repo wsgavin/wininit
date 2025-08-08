@@ -3,10 +3,15 @@
 ## Install via Store
 - Microsoft Office
 - Windows Notepad
+- PC Manager
+
+## Install Manually
+- MinGW
 
 ## Install via winget
 ```
 winget install Microsoft.PowerShell
+winget install Microsoft.WSL
 winget install 9N0DX20HK701 # Windows Terminal
 winget install XP89DCGQ3K6VLD # PowerToys (Preview) x64 
 winget install XP9KHM4BK9FZ7Q # Microsoft Visual Studio Code
@@ -21,4 +26,5 @@ winget install zig.zig
 winget install 7zip.7zip
 winget install Logitech.OptionsPlus
 winget install Google.Chrome
+winget install Intel.IntelDriverAndSupportAssistant
 ```
