@@ -6,17 +6,22 @@
 - PC Manager
 
 ## Install Manually
-- MinGW
+- MinGW https://github.com/niXman/mingw-builds-binaries?tab=readme-ov-file
 
 ## Install via winget
 ```
+# Run this first to get past the promot
+winget list
+
+
+# These should install without interaction
 winget install Microsoft.PowerShell
 winget install Microsoft.WSL
-winget install 9N0DX20HK701 # Windows Terminal
-winget install XP89DCGQ3K6VLD # PowerToys (Preview) x64 
-winget install XP9KHM4BK9FZ7Q # Microsoft Visual Studio Code
-winget install XP8K0HKJFRXGCK # Oh My Posh
+winget install Microsoft.WindowsTerminal
+winget install Microsoft.PowerToys 
+winget install Microsoft.VisualStudioCode
 winget install Microsoft.Git
+winget install JanDeDobbeleer.OhMyPosh
 winget install Neovim.Neovim
 winget install Burntsushi.ripgrep.MSVC
 winget install sharkdp.fd
@@ -27,4 +32,45 @@ winget install 7zip.7zip
 winget install Logitech.OptionsPlus
 winget install Google.Chrome
 winget install Intel.IntelDriverAndSupportAssistant
+```
+
+## Install
+
+```
+git clone https://github.com/LazyVim/starter $env:LOCALAPPDATA\nvim
+Remove-Item $env:LOCALAPPDATA\nvim\.git -Recurse -Force
+
+wsl --install
+
+oh-my-posh font install CascadiaMono
+```
+
+## ssh key
+
+```
+# as users
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# With administrative rights
+Get-Service -Name ssh-agent | Set-Service -StartupType Manual
+Start-Service ssh-agent
+
+# as user
+ssh-add c:/Users/YOU/.ssh/id_ed25519
+
+type ~/.ssh/id_ed25519.pub | clip
+
+ssh -T git@github.com
+```
+
+## git
+
+```
+
+git config --global user.email "warren@dubelyoo.com"
+git config --global user.name "Warren"
+
+git clone git@github.com:wsgavin/wininit.git 
+git clone git@github.com:wsgavin/ubuntu-nix.git  
+
 ```
