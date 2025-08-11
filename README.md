@@ -1,15 +1,27 @@
 # Windows Init
 
+## Environment
+
+```powershell
+[System.Environment]::SetEnvironmentVariable("XDG_CACHE_HOME", "%USERPROFILE%\.cache", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "%USERPROFILE%\.config", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_DATA_HOME", "%USERPROFILE%\.local\share", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_STATE_HOME", "%USERPROFILE%\.local\state", "User")
+```
+
 ## Install via Store
+
 - Microsoft Office
 - Windows Notepad
 - PC Manager
 
 ## Install Manually
+
 - MinGW https://github.com/niXman/mingw-builds-binaries?tab=readme-ov-file
 
 ## Install via winget
-```
+
+```powershell
 # Run this first to get past the promot
 winget list
 
@@ -36,9 +48,9 @@ winget install Intel.IntelDriverAndSupportAssistant
 
 ## Install
 
-```
-git clone https://github.com/LazyVim/starter $env:LOCALAPPDATA\nvim
-Remove-Item $env:LOCALAPPDATA\nvim\.git -Recurse -Force
+```powershell
+git clone https://github.com/LazyVim/starter $env:XDG_CONFIG_HOME\nvim
+Remove-Item $env:XDG_CONFIG_HOME\nvim\.git -Recurse -Force
 
 wsl --install
 
@@ -47,7 +59,7 @@ oh-my-posh font install CascadiaMono
 
 ## ssh key
 
-```
+```powershell
 # as users
 ssh-keygen -t ed25519 -C "your_email@example.com"
 
@@ -65,7 +77,7 @@ ssh -T git@github.com
 
 ## git
 
-```
+```powershell
 
 git config --global user.email "warren@dubelyoo.com"
 git config --global user.name "Warren"
