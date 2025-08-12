@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Catppuccin Frappe",
+    "tab": {
+      "background": "#303446FF",
+      "iconStyle": "default",
+      "showCloseButton": "always",
+      "unfocusedBackground": null
+    },
+    "tabRow": {
+      "background": "#292C3CFF",
+      "unfocusedBackground": "#232634FF"
+    },
+    "window": {
+      "applicationTheme": "dark",
+      "experimental.rainbowFrame": false,
+      "frame": null,
+      "unfocusedFrame": null,
+      "useMica": false
+    }
+  },
+  {
+    "name": "Catppuccin Latte",
+    "tab": {
+      "background": "#EFF1F5FF",
+      "iconStyle": "default",
+      "showCloseButton": "always",
+      "unfocusedBackground": null
+    },
+    "tabRow": {
+      "background": "#E6E9EFFF",
+      "unfocusedBackground": "#DCE0E8FF"
+    },
+    "window": {
+      "applicationTheme": "light",
+      "experimental.rainbowFrame": false,
+      "frame": null,
+      "unfocusedFrame": null,
+      "useMica": false
+    }
+  },
+  {
+    "name": "Catppuccin Macchiato",
+    "tab": {
+      "background": "#24273AFF",
+      "iconStyle": "default",
+      "showCloseButton": "always",
+      "unfocusedBackground": null
+    },
+    "tabRow": {
+      "background": "#1E2030FF",
+      "unfocusedBackground": "#181926FF"
+    },
+    "window": {
+      "applicationTheme": "dark",
+      "experimental.rainbowFrame": false,
+      "frame": null,
+      "unfocusedFrame": null,
+      "useMica": false
+    }
+  },
+  {
+    "name": "Catppuccin Mocha",
+    "tab": {
+      "background": "#1E1E2EFF",
+      "iconStyle": "default",
+      "showCloseButton": "always",
+      "unfocusedBackground": null
+    },
+    "tabRow": {
+      "background": "#181825FF",
+      "unfocusedBackground": "#11111BFF"
+    },
+    "window": {
+      "applicationTheme": "dark",
+      "experimental.rainbowFrame": false,
+      "frame": null,
+      "unfocusedFrame": null,
+      "useMica": false
+    }
+  }
+]
