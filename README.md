@@ -15,10 +15,6 @@
 - Windows Notepad
 - PC Manager
 
-## Install Manually
-
-- MinGW https://github.com/niXman/mingw-builds-binaries?tab=readme-ov-file
-
 ## Install via winget
 
 ```powershell
@@ -34,6 +30,7 @@ winget install Microsoft.PowerToys
 winget install Microsoft.VisualStudioCode
 winget install Microsoft.Git
 winget install JanDeDobbeleer.OhMyPosh
+winget install MartinStorsjo.LLVM-MinGW.MSVCRT
 winget install Neovim.Neovim
 winget install Burntsushi.ripgrep.MSVC
 winget install sharkdp.fd
@@ -68,17 +65,14 @@ Get-Service -Name ssh-agent | Set-Service -StartupType Manual
 Start-Service ssh-agent
 
 # as user
-ssh-add c:/Users/YOU/.ssh/id_ed25519
-
-type ~/.ssh/id_ed25519.pub | clip
-
+ssh-add $env:USERPROFILE\.ssh\id_ed25519
+type $env:USERPROFILE\.ssh\id_ed25519.pub | clip
 ssh -T git@github.com
 ```
 
 ## git
 
 ```powershell
-
 git config --global user.email "warren@dubelyoo.com"
 git config --global user.name "Warren"
 
