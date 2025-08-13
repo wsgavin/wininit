@@ -6,8 +6,18 @@
 Install-Module -Name Microsoft.WinGet.Client
 Install-Module -Name Terminal-Icons
 
-git clone https://github.com/LazyVim/starter $env:XDG_CONFIG_HOME\nvim
-Remove-Item $env:XDG_CONFIG_HOME\nvim\.git -Recurse -Force
+$nvimConfigDirectory = "$env:XDG_CONFIG_HOME\nvim"
+
+if (-not (Test-Path -Path $nvimConfigDirectory -PathType Container)) {
+
+  Write-Host "Installing LazyVim"
+  git clone https://github.com/LazyVim/starter $nvimConfigDirectory
+  Remove-Item $nvimConfigDirectory\.git -Recurse -Force
+
+}
+else {
+  Write-Host "SKIPPING: LazyVim already exists."
+}
 
 oh-my-posh font install CascadiaMono
 
@@ -17,6 +27,8 @@ ssh-add $env:USERPROFILE\.ssh\id_ed25519
 
 git config --global user.email "warren@dubelyoo.com"
 git config --global user.name "Warren"
+git config --global core.autocrlf false
+git config --global core.eol lf
 
 # vscode Extensions
 
@@ -31,14 +43,16 @@ code  --install-extension EditorConfig.EditorConfig
 
 # Microsoft Terminal Configurations
 
-$actions = Get-Content -Path ".\terminal\actions.json" -Raw | ConvertFrom-Json
-$profiles_defaults = Get-Content -Path ".\terminal\profiles.defaults.json" -Raw | ConvertFrom-Json
-$schemes = Get-Content -Path ".\terminal\schemes.json" -Raw | ConvertFrom-Json
-$themes = Get-Content -Path ".\terminal\themes.json" -Raw | ConvertFrom-Json
+$terminalDirectory = ".\terminal"
+$terminalSettingsFile = `
+  "$ENV:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
-$terminal_settings = Get-Content -Path `
-  "$ENV:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" -Raw | `
-   ConvertFrom-Json
+$actions = Get-Content -Path "$terminalDirectory\actions.json" -Raw | ConvertFrom-Json
+$profiles_defaults = Get-Content -Path "$terminalDirectory\profiles.defaults.json" -Raw | ConvertFrom-Json
+$schemes = Get-Content -Path "$terminalDirectory\schemes.json" -Raw | ConvertFrom-Json
+$themes = Get-Content -Path "$terminalDirectory\themes.json" -Raw | ConvertFrom-Json
+
+$terminal_settings = Get-Content -Path "$terminalSettingsFile" -Raw | ConvertFrom-Json
 
 $terminal_settings.actions = $actions
 $terminal_settings.profiles.defaults = $profiles_defaults
@@ -46,11 +60,24 @@ $terminal_settings.schemes = $schemes
 $terminal_settings.themes = $themes
 
 $json = $terminal_settings | ConvertTo-Json -Depth 10
-$json | Set-Content -Path `
-  "$ENV:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+$json | Set-Content -Path "$terminalSettingsFile"
 
 
 # Pull down repositories
 
-git clone git@github.com:wsgavin/wininit.git
-git clone git@github.com:wsgavin/ubuntu-nix.git
+$projectsDirectory = "$env:USERPROFILE\.projects"
+
+if (-not (Test-Path -Path $projectsDirectory -PathType Container)) {
+  # Create the directory if it doesn't exist
+  New-Item -ItemType Directory -Path $projectsDirectory
+  Write-Host "Directory created: $projectsDirectory"
+
+  Write-Host "Pulling down project repos..."
+  git clone git@github.com:wsgavin/wininit.git "$projectsDirectory\wininit"
+  git clone git@github.com:wsgavin/ubuntu-nix.git "$projectsDirectory\ubuntu-nix"
+}
+else {
+  Write-Host "SKIPPING: Projects repo directory exists."
+}
+
+

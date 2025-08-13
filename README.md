@@ -19,9 +19,8 @@ Initialize `winget`.
 winget source update
 winget upgrade --all
 ```
-Now, install the following via `winget`.
 
-TODO: Figure out a way to not require admin prompt.
+Now, install the following via `winget`.
 
 ```powershell
 # as admin
@@ -96,8 +95,8 @@ ssh-add $env:USERPROFILE\.ssh\id_ed25519
 git config --global user.email "warren@dubelyoo.com"
 git config --global user.name "Warren"
 
-git clone git@github.com:wsgavin/wininit.git 
-git clone git@github.com:wsgavin/ubuntu-nix.git  
+git clone git@github.com:wsgavin/wininit.git
+git clone git@github.com:wsgavin/ubuntu-nix.git
 
 ```
 
