@@ -10,18 +10,20 @@ New-Alias which Get-Command
 New-Alias vi nvim
 
 Function WinGetUpdate {
-    winget --version
-    winget source update
-    winget upgrade
+  winget --version
+  winget source update
+  winget upgrade
 }
 
 Function WinGetUpdateAll {
-    winget --version
-    winget source update
-    winget upgrade --all
+  winget --version
+  winget source update
+  winget upgrade --all
 }
 
-Function OfficeUpdate { & "C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeC2RClient.exe" /update user }
+Function OfficeUpdate {
+  & "C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeC2RClient.exe" /update user
+}
 
 New-Alias -Name wu -Value WinGetUpdate
 New-Alias -Name wua -Value WinGetUpdateAll
