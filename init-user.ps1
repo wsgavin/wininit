@@ -3,9 +3,6 @@
 [System.Environment]::SetEnvironmentVariable("XDG_DATA_HOME", "%USERPROFILE%\.local\share", "User")
 [System.Environment]::SetEnvironmentVariable("XDG_STATE_HOME", "%USERPROFILE%\.local\state", "User")
 
-Install-Module -Name Microsoft.WinGet.Client
-Install-Module -Name Terminal-Icons
-
 $nvimConfigDirectory = "$env:XDG_CONFIG_HOME\nvim"
 
 if (-not (Test-Path -Path $nvimConfigDirectory -PathType Container)) {

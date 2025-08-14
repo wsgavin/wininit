@@ -2,125 +2,37 @@
 
 ## Environment
 
-Prior to installation of software, set up the XDG evnironment variables.
-
-```powershell
-[System.Environment]::SetEnvironmentVariable("XDG_CACHE_HOME", "%USERPROFILE%\.cache", "User")
-[System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "%USERPROFILE%\.config", "User")
-[System.Environment]::SetEnvironmentVariable("XDG_DATA_HOME", "%USERPROFILE%\.local\share", "User")
-[System.Environment]::SetEnvironmentVariable("XDG_STATE_HOME", "%USERPROFILE%\.local\state", "User")
-```
-
-## Install via winget
-
-Initialize `winget`.
+Prior to installation of software, set up a few tings.
 
 ```powershell
 winget source update
 winget upgrade --all
-```
+winget install Microsoft.Git
 
-Now, install the following via `winget`.
-
-```powershell
-# as admin
-winget install `
-Microsoft.PowerShell  `
-Microsoft.WSL `
-Microsoft.WindowsTerminal `
-Microsoft.PowerToys `
-Microsoft.VisualStudioCode `
-Microsoft.Git `
-JanDeDobbeleer.OhMyPosh `
-MartinStorsjo.LLVM-MinGW.MSVCRT `
-Neovim.Neovim `
-Burntsushi.ripgrep.MSVC `
-sharkdp.fd `
-OpenJS.NodeJS `
-Python.Python.3.13 `
-zig.zig `
-7zip.7zip `
-Logitech.OptionsPlus `
-Google.Chrome `
-Intel.IntelDriverAndSupportAssistant `
---accept-package-agreements
-```
-
-Go to the Microsoft store and get updates as well.
-
-## Install
-
-### PowerShell modules
-
-```powershell
-Install-Module -Name Microsoft.WinGet.Client
-Install-Module -Name Terminal-Icons
-```
-
-### LazyVim
-
-```powershell
-git clone https://github.com/LazyVim/starter $env:XDG_CONFIG_HOME\nvim
-Remove-Item $env:XDG_CONFIG_HOME\nvim\.git -Recurse -Force
-```
-
-### Oh My Posh set up
-
-``` powershell
-oh-my-posh font install CascadiaMono
-```
-
-### Microsoft Terminal settings
-
-```powershell
-terminal\init.ps1
-```
-
-## ssh key
-
-Need to download both private and public keys prior to starting.
-
-```powershell
-# as admin
-Get-Service -Name ssh-agent | Set-Service -StartupType Manual
-Start-Service ssh-agent
-
-# as user
-ssh-add $env:USERPROFILE\.ssh\id_ed25519
-```
-
-## git
-
-```powershell
-git config --global user.email "warren@dubelyoo.com"
-git config --global user.name "Warren"
+New-Item -Path "$env:USERPROFILE/.projects" -ItemType Directory
 
 git clone git@github.com:wsgavin/wininit.git
-git clone git@github.com:wsgavin/ubuntu-nix.git
-
 ```
 
-## vscode
+Now, we can start the install scripts. The first one needs to be run by an admin.
 
 ```powershell
-code  --install-extension bbenoist.Nix
-code  --install-extension brettm12345.nixfmt-vscode
-code  --install-extension DavidAnson.vscode-markdownlint
-code  --install-extension ms-vscode.powershell
-code  --install-extension esbenp.prettier-vscode
-code  --install-extension dbaeumer.vscode-eslint
-code  --install-extension ms-python.python
-code  --install-extension EditorConfig.EditorConfig
+cd $env:USERPROFILE/.projects/wininit
+init-admin.ps1
 ```
 
-## Install and Unistall
+Now a script for user level.
 
-### Install via Microsoft Store
+```powershell
+cd $env:USERPROFILE/.projects/wininit
+init-user.ps1
+```
+
+Go to the Microsoft store and get updates and install the below.
 
 - Microsoft Office
 - Windows Notepad
 - PC Manager
-
 
 ## If needed prior to install
 
