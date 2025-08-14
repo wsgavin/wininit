@@ -9,22 +9,32 @@ winget source update
 winget upgrade --all
 winget install Microsoft.Git
 
-New-Item -Path "$env:USERPROFILE/.projects" -ItemType Directory
+# Setting up XDG user variables.
+[System.Environment]::SetEnvironmentVariable("XDG_CACHE_HOME", "%USERPROFILE%\.cache", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "%USERPROFILE%\.config", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_DATA_HOME", "%USERPROFILE%\.local\share", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_STATE_HOME", "%USERPROFILE%\.local\state", "User")
 
-git clone git@github.com:wsgavin/wininit.git
+[System.Environment]::SetEnvironmentVariable("PROJECTS_HOME", "%USERPROFILE%\.projects", "User")
+
+New-Item -Path "$XDG_CONFIG_HOME" -ItemType Directory
+New-Item -Path "$XDG_CONFIG_HOME\git" -ItemType Directory
+New-Item -Path "$PROJECTS_HOME" -ItemType Directory
+
+git clone git@github.com:wsgavin/wininit.git "$PROJECTS_HOME\wininit"
 ```
 
 Now, we can start the install scripts. The first one needs to be run by an admin.
 
 ```powershell
-cd $env:USERPROFILE/.projects/wininit
+cd "$PROJECTS_HOME\wininit"
 init-admin.ps1
 ```
 
 Now a script for user level.
 
 ```powershell
-cd $env:USERPROFILE/.projects/wininit
+cd "$PROJECTS_HOME\wininit"
 init-user.ps1
 ```
 
