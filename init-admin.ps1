@@ -7,7 +7,6 @@ Microsoft.WSL `
 Microsoft.WindowsTerminal `
 Microsoft.PowerToys `
 Microsoft.VisualStudioCode `
-Microsoft.Git `
 JanDeDobbeleer.OhMyPosh `
 MartinStorsjo.LLVM-MinGW.MSVCRT `
 Neovim.Neovim `
@@ -24,3 +23,6 @@ Intel.IntelDriverAndSupportAssistant `
 
 Get-Service -Name ssh-agent | Set-Service -StartupType Automatic
 Start-Service ssh-agent
+
+Install-Module -Name Microsoft.WinGet.Client
+Install-Module -Name Terminal-Icons
