@@ -24,5 +24,10 @@ Intel.IntelDriverAndSupportAssistant `
 Get-Service -Name ssh-agent | Set-Service -StartupType Automatic
 Start-Service ssh-agent
 
-Install-Module -Name Microsoft.WinGet.Client
-Install-Module -Name Terminal-Icons
+if (-not (Get-Module -ListAvailable -Name Terminal-Icons)) {
+  Install-Module -Name Terminal-Icons
+}
+
+if (-not (Get-Module -ListAvailable -Name Microsoft.WinGet.Client)) {
+  Install-Module -Name Microsoft.WinGet.Client
+}

@@ -2,8 +2,13 @@
 $(Get-Date).ToString() + " " + $(Get-TimeZone).ToString()
 Write-Host ""
 
-Import-Module -Name Terminal-Icons
-Import-Module -Name Microsoft.WinGet.CommandNotFound
+if (Get-Module -ListAvailable -Name Terminal-Icons) {
+  Import-Module -Name Terminal-Icons
+}
+
+if (Get-Module -ListAvailable -Name Microsoft.WinGet.Client) {
+  Import-Module -Name Microsoft.WinGet.CommandNotFound
+}
 
 # Aliases
 New-Alias which Get-Command

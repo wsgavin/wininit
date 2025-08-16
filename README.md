@@ -11,13 +11,19 @@ New-Item -Path "%USERPROFILE\.ssh" -ItemType Directory
 scp user@host:/dir/* %USERPROFILE%\.ssh
 ```
 
+### Initialize `winget`
+
+```powershell
+winget list --accept-package-agreements
+winget source update
+winget upgrade --all
+```
+
 ### Initialize environment variables, git and execute the admin and user script
 
 Prior to installation of software, set up a few tings.
 
 ```powershell
-winget source update
-winget upgrade --all
 winget install Microsoft.Git
 
 # Setting up XDG user variables.
@@ -41,7 +47,7 @@ New-Item -Path "$PROJECTS_HOME" -ItemType Directory
 git clone git@github.com:wsgavin/wininit.git "$PROJECTS_HOME\wininit"
 ```
 
-Now, we can start the install scripts. The first one needs to be run by an admin.
+Close the Powershell window. Now, we can start the install scripts. The first one needs to be run by an admin.
 
 ```powershell
 cd "$PROJECTS_HOME\wininit"
@@ -50,7 +56,7 @@ powershell -ExecutionPolicy Bypass -File .\init-admin.ps1
 
 Now a script for user level.
 
-```powershell
+```pwsh
 cd "$PROJECTS_HOME\wininit"
 init-user.ps1
 ```

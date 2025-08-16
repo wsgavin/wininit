@@ -1,8 +1,3 @@
-[System.Environment]::SetEnvironmentVariable("XDG_CACHE_HOME", "%USERPROFILE%\.cache", "User")
-[System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "%USERPROFILE%\.config", "User")
-[System.Environment]::SetEnvironmentVariable("XDG_DATA_HOME", "%USERPROFILE%\.local\share", "User")
-[System.Environment]::SetEnvironmentVariable("XDG_STATE_HOME", "%USERPROFILE%\.local\state", "User")
-
 $nvimConfigDirectory = "$env:XDG_CONFIG_HOME\nvim"
 
 if (-not (Test-Path -Path $nvimConfigDirectory -PathType Container)) {
@@ -62,19 +57,19 @@ $json | Set-Content -Path "$terminalSettingsFile"
 
 # Pull down repositories
 
-$projectsDirectory = "$env:USERPROFILE\.projects"
+# $projectsDirectory = "$env:USERPROFILE\.projects"
 
-if (-not (Test-Path -Path $projectsDirectory -PathType Container)) {
-  # Create the directory if it doesn't exist
-  New-Item -ItemType Directory -Path $projectsDirectory
-  Write-Host "Directory created: $projectsDirectory"
+# if (-not (Test-Path -Path $projectsDirectory -PathType Container)) {
+#   # Create the directory if it doesn't exist
+#   New-Item -ItemType Directory -Path $projectsDirectory
+#   Write-Host "Directory created: $projectsDirectory"
 
-  Write-Host "Pulling down project repos..."
-  git clone git@github.com:wsgavin/wininit.git "$projectsDirectory\wininit"
-  git clone git@github.com:wsgavin/ubuntu-nix.git "$projectsDirectory\ubuntu-nix"
-}
-else {
-  Write-Host "SKIPPING: Projects repo directory exists."
-}
+#   Write-Host "Pulling down project repos..."
+#   git clone git@github.com:wsgavin/wininit.git "$projectsDirectory\wininit"
+#   git clone git@github.com:wsgavin/ubuntu-nix.git "$projectsDirectory\ubuntu-nix"
+# }
+# else {
+#   Write-Host "SKIPPING: Projects repo directory exists."
+# }
 
 
