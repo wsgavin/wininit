@@ -8,13 +8,13 @@ The ssh keys need to be in place so the wininit repo can be downloaded.
 
 ```powershell
 New-Item -Path "$env:USERPROFILE\.ssh" -ItemType Directory
-scp user@host:/dir/* %USERPROFILE%\.ssh
+scp user@host:/dir/* $env:USERPROFILE\.ssh
 ```
 
 ### Initialize `winget`
 
 ```powershell
-winget list --accept-package-agreements
+winget list
 winget source update
 winget upgrade --all
 ```
@@ -25,11 +25,11 @@ Prior to installation of software, set up a few tings.
 
 ```powershell
 # Setting up XDG user variables.
-[System.Environment]::SetEnvironmentVariable("XDG_CACHE_HOME", "%USERPROFILE%\.cache", "User")
-[System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "%USERPROFILE%\.config", "User")
-[System.Environment]::SetEnvironmentVariable("XDG_DATA_HOME", "%USERPROFILE%\.local\share", "User")
-[System.Environment]::SetEnvironmentVariable("XDG_STATE_HOME", "%USERPROFILE%\.local\state", "User")
-[System.Environment]::SetEnvironmentVariable("PROJECTS_HOME", "%USERPROFILE%\.projects", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_CACHE_HOME", "$env:USERPROFILE\.cache", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "$env:USERPROFILE\.config", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_DATA_HOME", "$env:USERPROFILE\.local\share", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_STATE_HOME", "$env:USERPROFILE\.local\state", "User")
+[System.Environment]::SetEnvironmentVariable("PROJECTS_HOME", "$env:USERPROFILE\.projects", "User")
 
 $env:XDG_CACHE_HOME = [System.Environment]::GetEnvironmentVariable("XDG_CACHE_HOME", "User")
 $env:XDG_CONFIG_HOME = [System.Environment]::GetEnvironmentVariable("XDG_CONFIG_HOME", "User")
