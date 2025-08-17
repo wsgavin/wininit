@@ -7,7 +7,7 @@
 The ssh keys need to be in place so the wininit repo can be downloaded.
 
 ```powershell
-New-Item -Path "%USERPROFILE\.ssh" -ItemType Directory
+New-Item -Path "$env:USERPROFILE\.ssh" -ItemType Directory
 scp user@host:/dir/* %USERPROFILE%\.ssh
 ```
 
@@ -24,8 +24,6 @@ winget upgrade --all
 Prior to installation of software, set up a few tings.
 
 ```powershell
-winget install Microsoft.Git
-
 # Setting up XDG user variables.
 [System.Environment]::SetEnvironmentVariable("XDG_CACHE_HOME", "%USERPROFILE%\.cache", "User")
 [System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "%USERPROFILE%\.config", "User")
@@ -33,31 +31,34 @@ winget install Microsoft.Git
 [System.Environment]::SetEnvironmentVariable("XDG_STATE_HOME", "%USERPROFILE%\.local\state", "User")
 [System.Environment]::SetEnvironmentVariable("PROJECTS_HOME", "%USERPROFILE%\.projects", "User")
 
-
 $env:XDG_CACHE_HOME = [System.Environment]::GetEnvironmentVariable("XDG_CACHE_HOME", "User")
 $env:XDG_CONFIG_HOME = [System.Environment]::GetEnvironmentVariable("XDG_CONFIG_HOME", "User")
 $env:XDG_DATA_HOME = [System.Environment]::GetEnvironmentVariable("XDG_DATA_HOME", "User")
 $env:XDG_STATE_HOME = [System.Environment]::GetEnvironmentVariable("XDG_STATE_HOME", "User")
 $env:PROJECTS_HOME = [System.Environment]::GetEnvironmentVariable("PROJECTS_HOME", "User")
 
-New-Item -Path "$XDG_CONFIG_HOME" -ItemType Directory
-New-Item -Path "$XDG_CONFIG_HOME\git" -ItemType Directory
-New-Item -Path "$PROJECTS_HOME" -ItemType Directory
+New-Item -Path "$env:XDG_CONFIG_HOME" -ItemType Directory
+New-Item -Path "$env:XDG_CONFIG_HOME\git" -ItemType Directory
+New-Item -Path "$env:PROJECTS_HOME" -ItemType Directory
 
-git clone git@github.com:wsgavin/wininit.git "$PROJECTS_HOME\wininit"
+winget install Microsoft.Git
+
+$env:Path += ";$env:ProgramFiles\Git\cmd"
+
+git clone git@github.com:wsgavin/wininit.git "$env:PROJECTS_HOME\wininit"
 ```
 
 Close the Powershell window. Now, we can start the install scripts. The first one needs to be run by an admin.
 
 ```powershell
-cd "$PROJECTS_HOME\wininit"
+cd "$env:PROJECTS_HOME\wininit"
 powershell -ExecutionPolicy Bypass -File .\init-admin.ps1
 ```
 
 Now a script for user level.
 
 ```pwsh
-cd "$PROJECTS_HOME\wininit"
+cd "$env:PROJECTS_HOME\wininit"
 init-user.ps1
 ```
 

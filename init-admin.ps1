@@ -1,6 +1,3 @@
-winget source update
-winget upgrade --all
-
 winget install `
 Microsoft.PowerShell  `
 Microsoft.WSL `
@@ -18,8 +15,7 @@ zig.zig `
 7zip.7zip `
 Logitech.OptionsPlus `
 Google.Chrome `
-Intel.IntelDriverAndSupportAssistant `
---accept-package-agreements
+Intel.IntelDriverAndSupportAssistant
 
 Get-Service -Name ssh-agent | Set-Service -StartupType Automatic
 Start-Service ssh-agent
