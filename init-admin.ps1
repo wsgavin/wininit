@@ -15,7 +15,17 @@ zig.zig `
 7zip.7zip `
 Logitech.OptionsPlus `
 Google.Chrome `
-Intel.IntelDriverAndSupportAssistant
+Intel.IntelDriverAndSupportAssistant `
+Adobe.Acrobat.Reader.64-bit `
+Espanso.Espanso `
+Grammarly.Grammarly `
+LastPass.LastPass `
+Readdle.Spark `
+Spotify.Spotify `
+Trimble.SketchUp.2025 `
+Microsoft.Office `
+Canonical.Ubuntu
+
 
 Get-Service -Name ssh-agent | Set-Service -StartupType Automatic
 Start-Service ssh-agent
