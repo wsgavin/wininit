@@ -1,3 +1,8 @@
+# Installing software.
+
+winget source update
+winget upgrade --all
+
 winget install `
 Microsoft.PowerShell  `
 Microsoft.WSL `
@@ -26,9 +31,12 @@ Trimble.SketchUp.2025 `
 Microsoft.Office `
 Canonical.Ubuntu
 
+# Configuring ssh-agent to start automatically
 
 Get-Service -Name ssh-agent | Set-Service -StartupType Automatic
 Start-Service ssh-agent
+
+# Installing PowerShell modules
 
 if (-not (Get-Module -ListAvailable -Name Terminal-Icons)) {
   Install-Module -Name Terminal-Icons

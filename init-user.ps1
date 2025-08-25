@@ -1,3 +1,26 @@
+# Setting up user environment variables.
+
+# XDG
+
+[System.Environment]::SetEnvironmentVariable("XDG_CACHE_HOME", "$env:USERPROFILE\.cache", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "$env:USERPROFILE\.config", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_DATA_HOME", "$env:USERPROFILE\.local\share", "User")
+[System.Environment]::SetEnvironmentVariable("XDG_STATE_HOME", "$env:USERPROFILE\.local\state", "User")
+
+# For the purposes of the script, exposing the environment variables set up earlier.
+
+$env:XDG_CACHE_HOME = [System.Environment]::GetEnvironmentVariable("XDG_CACHE_HOME", "User")
+$env:XDG_CONFIG_HOME = [System.Environment]::GetEnvironmentVariable("XDG_CONFIG_HOME", "User")
+$env:XDG_DATA_HOME = [System.Environment]::GetEnvironmentVariable("XDG_DATA_HOME", "User")
+$env:XDG_STATE_HOME = [System.Environment]::GetEnvironmentVariable("XDG_STATE_HOME", "User")
+
+# Creating some initial directories.
+
+New-Item -Path "$env:XDG_CONFIG_HOME" -ItemType Directory
+New-Item -Path "$env:XDG_CONFIG_HOME\git" -ItemType Directory
+
+# Installing LazyVim
+
 $nvimConfigDirectory = "$env:XDG_CONFIG_HOME\nvim"
 
 if (-not (Test-Path -Path $nvimConfigDirectory -PathType Container)) {
@@ -17,12 +40,17 @@ ssh-add $env:USERPROFILE\.ssh\id_ed25519
 
 # git Configuration
 
+# Creating an empty config file so git does not create a .gitconfig file in
+# the home directory.
+New-Item -Path . -Name "$env:XDG_CONFIG_HOME\git\config" -ItemType "file" -Force
+
 git config --global user.email "warren@dubelyoo.com"
 git config --global user.name "Warren"
+git config --global init.defaultBranch main
 git config --global core.autocrlf false
 git config --global core.eol lf
 
-# vscode Extensions
+# vscode Extensions Installation
 
 code  --install-extension bbenoist.Nix
 code  --install-extension brettm12345.nixfmt-vscode
@@ -32,10 +60,11 @@ code  --install-extension esbenp.prettier-vscode
 code  --install-extension dbaeumer.vscode-eslint
 code  --install-extension ms-python.python
 code  --install-extension EditorConfig.EditorConfig
+code  --install-extension streetsidesoftware.code-spell-checker
 
 # Microsoft Terminal Configurations
 
-$terminalDirectory = ".\terminal"
+$terminalDirectory = "$env:PROJECTS_HOME\wininit\terminal"
 $terminalSettingsFile = `
   "$ENV:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
@@ -53,23 +82,3 @@ $terminal_settings.themes = $themes
 
 $json = $terminal_settings | ConvertTo-Json -Depth 10
 $json | Set-Content -Path "$terminalSettingsFile"
-
-
-# Pull down repositories
-
-# $projectsDirectory = "$env:USERPROFILE\.projects"
-
-# if (-not (Test-Path -Path $projectsDirectory -PathType Container)) {
-#   # Create the directory if it doesn't exist
-#   New-Item -ItemType Directory -Path $projectsDirectory
-#   Write-Host "Directory created: $projectsDirectory"
-
-#   Write-Host "Pulling down project repos..."
-#   git clone git@github.com:wsgavin/wininit.git "$projectsDirectory\wininit"
-#   git clone git@github.com:wsgavin/ubuntu-nix.git "$projectsDirectory\ubuntu-nix"
-# }
-# else {
-#   Write-Host "SKIPPING: Projects repo directory exists."
-# }
-
-
