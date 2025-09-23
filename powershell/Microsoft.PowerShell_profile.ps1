@@ -10,9 +10,36 @@ if (Get-Module -ListAvailable -Name Microsoft.WinGet.Client) {
   Import-Module -Name Microsoft.WinGet.CommandNotFound
 }
 
-# Aliases
-New-Alias which Get-Command
-New-Alias vi nvim
+if (Get-Module -ListAvailable -Name PSWindowsUpdate) {
+  Import-Module -Name PSWindowsUpdate 
+}
+
+# Aliases and functions for linux command equivalents (best we can)
+Set-Alias which Get-Command
+function grep {
+  param (
+    [string]$Pattern,
+    [string]$File
+  )
+  Select-String -Pattern $Pattern -Path $File
+}
+
+function touch {
+  param (
+    [string]$FileName
+  )
+
+  if (-Not (Test-Path $FileName)) {
+    New-Item -ItemType File -Name $FileName -Force
+  }
+  else {
+    (Get-Item $FileName).LastWriteTime = Get-Date
+  }
+
+}
+
+# Alias for commands
+Set-Alias vi nvim
 
 Function WinGetUpdate {
   winget --version
