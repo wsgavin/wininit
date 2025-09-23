@@ -1,11 +1,16 @@
 {
   "autoMarkPrompts": true,
   "colorScheme": "Catppuccin Mocha",
-  "experimental.rightClickContextMenu": true,
+  "cursorShape": "bar",
+  "experimental.retroTerminalEffect": false,
   "font": {
+    "builtinGlyphs": true,
+    "colorGlyphs": true,
     "face": "CaskaydiaMono Nerd Font Mono"
   },
   "opacity": 100,
   "padding": "15,15,10,10",
-  "showMarksOnScrollbar": true
+  "rightClickContextMenu": true,
+  "showMarksOnScrollbar": true,
+  "useAcrylic": true
 }
