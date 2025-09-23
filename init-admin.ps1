@@ -29,7 +29,8 @@ Readdle.Spark `
 Spotify.Spotify `
 Trimble.SketchUp.2025 `
 Microsoft.Office `
-Canonical.Ubuntu
+Canonical.Ubuntu `
+Postman.Postman
 
 # Configuring ssh-agent to start automatically
 
