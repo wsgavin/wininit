@@ -61,5 +61,4 @@ New-Alias -Name wu -Value WinGetUpdate
 New-Alias -Name wua -Value WinGetUpdateAll
 New-Alias -Name ou -Value OfficeUpdate
 
-#oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\paradox.omp.json" | Invoke-Expression
 oh-my-posh init pwsh | Invoke-Expression
