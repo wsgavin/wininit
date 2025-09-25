@@ -28,6 +28,7 @@ do {
         '1' {
             Clear-Host
             Write-Host "Initializing PowerShell..."
+            .\win11\user\applications\powershell\init.ps1
             pause # Wait for user to press Enter
         }
         '2' {
@@ -36,6 +37,59 @@ do {
             .\win11\user\applications\winget\init.ps1
             Get-Date
             pause
+        }
+        '3' {
+            Clear-Host
+            Write-Host "Initializing nvim..."
+            .\win11\user\applications\nvim\init.ps1
+            Get-Date
+            pause
+        }
+        '4' {
+            Clear-Host
+            Write-Host "Initializing Oh My Posh..."
+            .\win11\user\applications\oh-my-posh\init.ps1
+            Get-Date
+            pause
+        }
+        '5' {
+            Clear-Host
+            Write-Host "Initializing ssh..."
+            .\win11\user\applications\ssh\init.ps1
+            Get-Date
+            pause
+        }
+        '6' {
+            Clear-Host
+            Write-Host "Initializing Microsoft Terminal..."
+            .\win11\user\applications\terminal\init.ps1
+            Get-Date
+            pause
+        }
+        '7' {
+            Clear-Host
+            Write-Host "Initializing Visual Studio Code..."
+            .\win11\user\applications\vscode\init.ps1
+            Get-Date
+            pause
+        }
+        '8' {
+            Clear-Host
+            Write-Host "Initializing git..."
+            .\win11\user\applications\git\init.ps1
+            Get-Date
+            pause
+        }
+        'a' {
+            Write-Host "Initializing all..."
+            .\win11\user\applications\powershell\init.ps1
+            .\win11\user\applications\winget\init.ps1
+            .\win11\user\applications\nvim\init.ps1
+            .\win11\user\applications\oh-my-posh\init.ps1
+            .\win11\user\applications\ssh\init.ps1
+            .\win11\user\applications\terminal\init.ps1
+            .\win11\user\applications\vscode\init.ps1
+            .\win11\user\applications\git\init.ps1
         }
         'q' {
             Write-Host "Exiting..."

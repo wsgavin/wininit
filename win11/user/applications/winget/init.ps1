@@ -10,7 +10,7 @@
 $wingetSettingsFile = "$ENV:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
 
 # Read the settings to be initialized.
-$settings = Get-Content -Path "json\settings.json" -Raw | ConvertFrom-Json
+$settings = Get-Content -Path "$PSScriptRoot\json\settings.json" -Raw | ConvertFrom-Json
 
 # Read the current settings.json file
 $winget_settings = Get-Content -Path "$wingetSettingsFile" -Raw | ConvertFrom-Json
