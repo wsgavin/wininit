@@ -13,10 +13,10 @@ function Add-KeyValuePair {
     [string]$Key,
 
     [Parameter(Mandatory = $true)]
-    [string]$Value
+    $Value
   )
 
-  if ($json.psobject.Properties[$Key] -and !$Force) {
+  if ($json.psobject.Properties.Match($Key)) {
     $json.$Key = $Value
   }
   else {
@@ -26,10 +26,10 @@ function Add-KeyValuePair {
 }
 
 
-
-
 $terminalSettingsFile = `
   "$ENV:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+
+$profiles_dir = "$PSScriptRoot\json\profiles"
 
 $actions = Get-Content -Path "$PSScriptRoot\json\actions.json" -Raw | ConvertFrom-Json
 $profiles_defaults = Get-Content -Path "$PSScriptRoot\json\profiles.defaults.json" -Raw | ConvertFrom-Json
@@ -103,18 +103,25 @@ $terminal_settings = Get-Content -Path "$terminalSettingsFile" -Raw | ConvertFro
 # $terminal_settings.trimBlockSelection = $true
 # $terminal_settings.trimPaste = $true
 
-$terminal_settings = $terminal_settings | Add-KeyValuePair -Key "copyFormatting" -Value "none"
-$terminal_settings = $terminal_settings | Add-KeyValuePair -Key "copyOnSelect" -Value $true
-$terminal_settings = $terminal_settings | Add-KeyValuePair -Key "experimental.enableColorSelection" -Value $true
-$terminal_settings = $terminal_settings | Add-KeyValuePair -Key "focusFollowMouse" -Value $true
-$terminal_settings = $terminal_settings | Add-KeyValuePair -Key "searchWebDefaultQueryUrl" -Value "https://www.google.com/search?q=%22%s%22"
-$terminal_settings = $terminal_settings | Add-KeyValuePair -Key "trimBlockSelection" -Value $true
-$terminal_settings = $terminal_settings | Add-KeyValuePair -Key "trimPaste" -Value $true
+$terminal_settings | Add-KeyValuePair -Key "copyFormatting" -Value "none"
+$terminal_settings | Add-KeyValuePair -Key "copyOnSelect" -Value $true
+$terminal_settings | Add-KeyValuePair -Key "experimental.enableColorSelection" -Value $true
+$terminal_settings | Add-KeyValuePair -Key "focusFollowMouse" -Value $true
+$terminal_settings | Add-KeyValuePair -Key "searchWebDefaultQueryUrl" -Value "https://www.google.com/search?q=%22%s%22"
+$terminal_settings | Add-KeyValuePair -Key "trimBlockSelection" -Value $true
+$terminal_settings | Add-KeyValuePair -Key "trimPaste" -Value $true
 
 $terminal_settings.actions = $actions
 $terminal_settings.profiles.defaults = $profiles_defaults
 $terminal_settings.schemes = $schemes
 $terminal_settings.themes = $themes
+
+$files = Get-ChildItem -Path $profiles_dir -File
+
+foreach ($file in $files) {
+  $terminal_settings.profiles.list += Get-Content -Path $file -Raw | ConvertFrom-Json
+}
+
 
 $json = $terminal_settings | ConvertTo-Json -Depth 10
 $json | Set-Content -Path "$terminalSettingsFile"
