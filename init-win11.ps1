@@ -15,6 +15,7 @@ function Show-Menu {
     Write-Host "7: vscode"
     Write-Host "8: git"
     Write-Host "A: All"
+    Write-Host "R: Repositories"
     Write-Host "Q: Quit."
 }
 
@@ -90,6 +91,24 @@ do {
             .\win11\user\applications\terminal\init.ps1
             .\win11\user\applications\vscode\init.ps1
             .\win11\user\applications\git\init.ps1
+        }
+        'r' {
+            # Pull down repositories
+
+            $projectsDirectory = "$env:USERPROFILE\.projects"
+
+            if (-not (Test-Path -Path $projectsDirectory -PathType Container)) {
+                # Create the directory if it doesn't exist
+                New-Item -ItemType Directory -Path $projectsDirectory
+                Write-Host "Directory created: $projectsDirectory"
+
+                Write-Host "Pulling down project repos..."
+                git clone git@github.com:wsgavin/wininit.git "$projectsDirectory\wininit"
+                git clone git@github.com:wsgavin/ubuntu-nix.git "$projectsDirectory\ubuntu-nix"
+            }
+            else {
+                Write-Host "SKIPPING: Projects repo directory exists."
+            }
         }
         'q' {
             Write-Host "Exiting..."

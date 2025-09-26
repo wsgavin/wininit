@@ -38,71 +38,7 @@ $themes = Get-Content -Path "$PSScriptRoot\json\themes.json" -Raw | ConvertFrom-
 
 $terminal_settings = Get-Content -Path "$terminalSettingsFile" -Raw | ConvertFrom-Json
 
-
-# if ($null -ne $terminal_settings.'compatibility.enableUnfocusedAcrylic') {
-#   $terminal_settings.'compatibility.enableUnfocusedAcrylic' = $true
-# }
-# else {
-#   $terminal_settings | Add-Member -MemberType NoteProperty -Name "compatibility.enableUnfocusedAcrylic" -Value $true
-# }
-
-# if ($null -ne $terminal_settings.copyFormatting) {
-#   $terminal_settings.copyFormatting = "none"
-# }
-# else {
-#   $terminal_settings | Add-Member -MemberType NoteProperty -Name "copyFormatting" -Value "none"
-# }
-
-# if ($null -ne $terminal_settings.copyOnSelect) {
-#   $terminal_settings.copyOnSelect = $true
-# }
-# else {
-#   $terminal_settings | Add-Member -MemberType NoteProperty -Name "copyOnSelect" -Value $true
-# }
-
-# if ($null -ne $terminal_settings.'experimental.enableColorSelection') {
-#   $terminal_settings.'experimental.enableColorSelection' = $true
-# }
-# else {
-#   $terminal_settings | Add-Member -MemberType NoteProperty -Name "experimental.enableColorSelection" -Value $true
-# }
-
-# if ($null -ne $terminal_settings.focusFollowMouse) {
-#   $terminal_settings.focusFollowMouse = $true
-# }
-# else {
-#   $terminal_settings | Add-Member -MemberType NoteProperty -Name "focusFollowMouse" -Value $true
-# }
-
-# if ($null -ne $terminal_settings.searchWebDefaultQueryUrl) {
-#   $terminal_settings.searchWebDefaultQueryUrl = "https://www.google.com/search?q=%22%s%22"
-# }
-# else {
-#   $terminal_settings | Add-Member -MemberType NoteProperty -Name "searchWebDefaultQueryUrl" -Value "https://www.google.com/search?q=%22%s%22"
-# }
-
-# if ($null -ne $terminal_settings.trimBlockSelection) {
-#   $terminal_settings.trimBlockSelection = $true
-# }
-# else {
-#   $terminal_settings | Add-Member -MemberType NoteProperty -Name "trimBlockSelection" -Value $true
-# }
-
-# if ($null -ne $terminal_settings.trimPaste) {
-#   $terminal_settings.trimPaste = $true
-# }
-# else {
-#   $terminal_settings | Add-Member -MemberType NoteProperty -Name "trimPaste" -Value $true
-# }
-
-# $terminal_settings.copyFormatting = "none"
-# $terminal_settings.copyOnSelect = $true
-# $terminal_settings.'experimental.enableColorSelection' = $true
-# $terminal_settings.focusFollowMouse = $true
-# $terminal_settings.searchWebDefaultQueryUrl = "https://www.google.com/search?q=%22%s%22"
-# $terminal_settings.trimBlockSelection = $true
-# $terminal_settings.trimPaste = $true
-
+# Update settings
 $terminal_settings | Add-KeyValuePair -Key "copyFormatting" -Value "none"
 $terminal_settings | Add-KeyValuePair -Key "copyOnSelect" -Value $true
 $terminal_settings | Add-KeyValuePair -Key "experimental.enableColorSelection" -Value $true
@@ -116,12 +52,15 @@ $terminal_settings.profiles.defaults = $profiles_defaults
 $terminal_settings.schemes = $schemes
 $terminal_settings.themes = $themes
 
-$files = Get-ChildItem -Path $profiles_dir -File
+# Add the custom profiles
+$files = Get-ChildItem -Path $profiles_dir -Filter "*.json" -File
 
+# Loop through the custom profiles and add them to the settings
+# TODO add logic to check if the profile exists already.
 foreach ($file in $files) {
   $terminal_settings.profiles.list += Get-Content -Path $file -Raw | ConvertFrom-Json
 }
 
-
+# Convert the json object to a string and save to a file
 $json = $terminal_settings | ConvertTo-Json -Depth 10
 $json | Set-Content -Path "$terminalSettingsFile"

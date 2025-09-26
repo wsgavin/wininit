@@ -1,16 +1,40 @@
 [
   {
     "keys": "ctrl+up",
-    "command": { "action": "scrollToMark", "direction": "previous" }
+    "command": {
+      "action": "scrollToMark",
+      "direction": "previous"
+    }
   },
   {
     "keys": "ctrl+down",
-    "command": { "action": "scrollToMark", "direction": "next" }
+    "command": {
+      "action": "scrollToMark",
+      "direction": "next"
+    }
   },
-
-  { "command": { "action": "selectOutput", "direction": "prev" } },
-  { "command": { "action": "selectOutput", "direction": "next" } },
-
-  { "command": { "action": "selectCommand", "direction": "prev" } },
-  { "command": { "action": "selectCommand", "direction": "next" } }
+  {
+    "command": {
+      "action": "selectOutput",
+      "direction": "prev"
+    }
+  },
+  {
+    "command": {
+      "action": "selectOutput",
+      "direction": "next"
+    }
+  },
+  {
+    "command": {
+      "action": "selectCommand",
+      "direction": "prev"
+    }
+  },
+  {
+    "command": {
+      "action": "selectCommand",
+      "direction": "next"
+    }
+  }
 ]
